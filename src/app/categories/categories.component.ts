@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./categories.component.css']
 })
 export class CategoriesComponent {
-
+  onSubmit(formData: any) {
+    let categoryData = {
+      category: formData.value.category
+    }
+    console.log(categoryData);
+  }
 }
