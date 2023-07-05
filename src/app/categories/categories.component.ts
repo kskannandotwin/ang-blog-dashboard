@@ -12,7 +12,8 @@ export class CategoriesComponent {
 
   onSubmit(formData: any) {
     let categoryData = {
-      category: formData.value.category
+      category: formData.value.category,
+      status: 'active'
     }
     
     this.afs.collection('categories').add(categoryData).then(docRef => {
