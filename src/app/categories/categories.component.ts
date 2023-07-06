@@ -12,12 +12,20 @@ export class CategoriesComponent {
 
   onSubmit(formData: any) {
     let categoryData = {
-      category: formData.value.category,
-      status: 'active'
+      category: formData.value.category      
+    }
+    let subCategoryData = {
+      subCategory: 'subCategory1'      
     }
     
     this.afs.collection('categories').add(categoryData).then(docRef => {
       console.log(docRef);
+      this.afs.collection('categories').doc(docRef.id).collection('subcategoreis').add(subCategoryData).then(docRef1 => {
+        console.log(docRef1);
+          this.afs.collection('categories').doc(docRef.id).collection('subcategories').doc(docRef1.id).collection('subsubcategories').add(subCategoryData).then(docRef2 => {
+            console.log('Second level subcategory saved successfully');
+          })       
+      })
     }).catch(err => {
       console.log(err);
     })
