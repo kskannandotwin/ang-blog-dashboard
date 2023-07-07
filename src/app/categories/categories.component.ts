@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { CategoriesService } from '../services/categories.service';
 
 @Component({
   selector: 'app-categories',
@@ -8,31 +8,35 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 })
 export class CategoriesComponent {
 
-  constructor(private afs: AngularFirestore) {}
+  constructor(private categoryService: CategoriesService) { }
 
   onSubmit(formData: any) {
     let categoryData = {
-      category: formData.value.category      
+      category: formData.value.category
     }
-    let subCategoryData = {
-      subCategory: 'subCategory1'      
-    }
-    
-    this.afs.collection('categories').add(categoryData).then(docRef => {
-      console.log(docRef);
-      // this.afs.doc(`categories/${docRef.id}`).collection('subcategories').add(subCategoryData)
-      this.afs.collection('categories').doc(docRef.id).collection('subcategoreis').add(subCategoryData).then(docRef1 => {
-        console.log(docRef1);
 
-        this.afs.doc(`categories/${docRef.id}/subcategories/${docRef1.id}`).collection('subsubcategories').add(subCategoryData)
-        // this.afs.doc(`categories/${docRef.id}/subcategories/${docRef1.id}/subsubcategories/`).add(subCategoryData)
+    this.categoryService.saveData(categoryData);
 
-          this.afs.collection('categories').doc(docRef.id).collection('subcategories').doc(docRef1.id).collection('subsubcategories').add(subCategoryData).then(docRef2 => {
-            console.log('Second level subcategory saved successfully');
-          })       
-      })
-    }).catch(err => {
-      console.log(err);
-    })
+
+    // let subCategoryData = {
+    //   subCategory: 'subCategory1'      
+    // }
+
+    // this.afs.collection('categories').add(categoryData).then(docRef => {
+    //   console.log(docRef);
+    //   // this.afs.doc(`categories/${docRef.id}`).collection('subcategories').add(subCategoryData)
+    //   this.afs.collection('categories').doc(docRef.id).collection('subcategoreis').add(subCategoryData).then(docRef1 => {
+    //     console.log(docRef1);
+
+    //     this.afs.doc(`categories/${docRef.id}/subcategories/${docRef1.id}`).collection('subsubcategories').add(subCategoryData)
+    //     // this.afs.doc(`categories/${docRef.id}/subcategories/${docRef1.id}/subsubcategories/`).add(subCategoryData)
+
+    //       this.afs.collection('categories').doc(docRef.id).collection('subcategories').doc(docRef1.id).collection('subsubcategories').add(subCategoryData).then(docRef2 => {
+    //         console.log('Second level subcategory saved successfully');
+    //       })       
+    //   })
+    // }).catch(err => {
+    //   console.log(err);
+    // })
   }
 }
