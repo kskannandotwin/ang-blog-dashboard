@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { ToastrModule } from 'ngx-toastr';
 // import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 // import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 // import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
@@ -27,6 +29,7 @@ import { CategoriesComponent } from './categories/categories.component';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     // provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     // provideFirestore(() => {
@@ -38,6 +41,7 @@ import { CategoriesComponent } from './categories/categories.component';
     // provideDatabase(() => getDatabase()),
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
+    ToastrModule.forRoot(),
     FormsModule
   ],
   providers: [],
