@@ -20,8 +20,13 @@ export class CategoriesComponent {
     
     this.afs.collection('categories').add(categoryData).then(docRef => {
       console.log(docRef);
+      // this.afs.doc(`categories/${docRef.id}`).collection('subcategories').add(subCategoryData)
       this.afs.collection('categories').doc(docRef.id).collection('subcategoreis').add(subCategoryData).then(docRef1 => {
         console.log(docRef1);
+
+        this.afs.doc(`categories/${docRef.id}/subcategories/${docRef1.id}`).collection('subsubcategories').add(subCategoryData)
+        // this.afs.doc(`categories/${docRef.id}/subcategories/${docRef1.id}/subsubcategories/`).add(subCategoryData)
+
           this.afs.collection('categories').doc(docRef.id).collection('subcategories').doc(docRef1.id).collection('subsubcategories').add(subCategoryData).then(docRef2 => {
             console.log('Second level subcategory saved successfully');
           })       
