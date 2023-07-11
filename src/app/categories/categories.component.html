@@ -14,7 +14,8 @@
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <button class="btn btn-grid btn-info mb-2 btn-theme" [disabled]="categoryForm.invalid">{{ formStatus }}
+                    <button class="btn btn-grid btn-info mb-2 btn-theme" [disabled]="categoryForm.invalid">{{ formStatus
+                        }}
                         Category</button>
                 </div>
             </form>
@@ -38,8 +39,12 @@
                             <tr *ngFor="let category of categoryArray; let i = index">
                                 <td>{{ i + 1 }}</td>
                                 <td>{{ category.data.category }}</td>
-                                <td><button class="btn btn-sm btn-warning"
-                                        (click)="onEdit(category.data.category, category.id)">Edit</button></td>
+                                <td>
+                                    <button class="btn btn-sm btn-warning"
+                                        (click)="onEdit(category.data.category, category.id)">Edit</button>
+                                    <button class="btn btn-sm btn-danger ml-2"
+                                        (click)="onDelete(category.id)">Delete</button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
