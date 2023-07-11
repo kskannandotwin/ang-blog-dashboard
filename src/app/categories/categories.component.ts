@@ -10,6 +10,9 @@ import { Category } from '../models/category';
 export class CategoriesComponent implements OnInit {
 
   categoryArray: Array<object> | any;
+  formCategory: string | undefined;
+  formStatus: string = 'Add';
+  categoryID: string | undefined;
 
   constructor(private categoryService: CategoriesService) { }
 
@@ -25,9 +28,16 @@ export class CategoriesComponent implements OnInit {
       category: formData.value.category
     }
 
-    this.categoryService.saveData(categoryData);
+    if (this.formStatus == 'Add') {
+      this.categoryService.saveData(categoryData);
+      formData.reset();
+    } else if(this.formStatus =='Edit') {
+      this.categoryService.updateData(this.categoryID, categoryData);
+      formData.reset();
+      this.formStatus = 'Add';
+    }
 
-    formData.reset();
+
 
 
     // let subCategoryData = {
@@ -50,5 +60,11 @@ export class CategoriesComponent implements OnInit {
     // }).catch(err => {
     //   console.log(err);
     // })
+  }
+
+  onEdit(category: any, id: any) {
+    this.formCategory = category;
+    this.formStatus = 'Edit';
+    this.categoryID = id;
   }
 }

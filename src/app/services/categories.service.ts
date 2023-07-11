@@ -30,4 +30,10 @@ export class CategoriesService {
       })
     )
   }
+
+  updateData(id: string | undefined, EditData: Partial<unknown>) {
+    this.afs.collection('categories').doc(id).update(EditData).then(docRef => {
+      this.toastr.success('Data updated successfully!');
+    })
+  }
 }
