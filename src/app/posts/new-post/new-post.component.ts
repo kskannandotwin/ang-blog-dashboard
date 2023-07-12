@@ -7,4 +7,11 @@ import { Component } from '@angular/core';
 })
 export class NewPostComponent {
 
+  permalink: string = '';
+
+  onTitleChanged($event: any) {
+    const title = $event.target.value;
+    this.permalink = title.replace(/\s/g, '-');
+  }
+
 }
