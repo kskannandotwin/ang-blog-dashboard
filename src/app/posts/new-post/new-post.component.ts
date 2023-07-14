@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { CategoriesService } from 'src/app/services/categories.service';
 
 @Component({
@@ -7,14 +8,24 @@ import { CategoriesService } from 'src/app/services/categories.service';
   styleUrls: ['./new-post.component.css']
 })
 export class NewPostComponent implements OnInit {
-  
+
   permalink: string = '';
   imgSrc: any = './assets/placeholder-image.png';
   selectedImg: any;
 
   categories: Array<object> | any;
+  postForm: FormGroup | any;
 
-  constructor(private categoryService: CategoriesService) { }
+  constructor(private categoryService: CategoriesService, private fb: FormBuilder) {
+    this.postForm = this.fb.group({
+      title: [''],
+      permalink: [{value: '', disabled: true}],
+      excerpt: [''],
+      category: [''],
+      postImg: [''],
+      content: ['']
+    });
+  }
 
   ngOnInit() {
     this.categoryService.loadData().subscribe(val => {
@@ -29,7 +40,7 @@ export class NewPostComponent implements OnInit {
 
   showPreview($event: any) {
     const reader = new FileReader();
-    reader.onload = (e:any) => {
+    reader.onload = (e: any) => {
       this.imgSrc = e.target.result;
     }
     reader.readAsDataURL($event.target.files[0]);

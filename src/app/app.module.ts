@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 // import { getDatabase, provideDatabase } from '@angular/fire/database';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './layouts/header/header.component';
 import { FooterComponent } from './layouts/footer/footer.component';
@@ -49,6 +50,7 @@ import { NewPostComponent } from './posts/new-post/new-post.component';
     AngularFirestoreModule,
     ToastrModule.forRoot(),
     FormsModule,
+    ReactiveFormsModule,
     AngularEditorModule,
     HttpClientModule
   ],
