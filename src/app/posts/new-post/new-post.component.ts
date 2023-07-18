@@ -34,7 +34,7 @@ export class NewPostComponent implements OnInit {
   }
 
   get fc() {
-    return this.postForm.controls
+    return this.postForm.controls;
   }
 
   onTitleChanged($event: any) {
@@ -49,6 +49,10 @@ export class NewPostComponent implements OnInit {
     }
     reader.readAsDataURL($event.target.files[0]);
     this.selectedImg = $event.target.files[0];
+  }
+
+  onSubmit() {
+    console.log(this.postForm.value);
   }
 
 }
