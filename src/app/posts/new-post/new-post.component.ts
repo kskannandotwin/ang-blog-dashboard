@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Post } from 'src/app/models/post';
 import { CategoriesService } from 'src/app/services/categories.service';
 
 @Component({
@@ -53,6 +54,21 @@ export class NewPostComponent implements OnInit {
 
   onSubmit() {
     console.log(this.postForm.value);
+    const postData: Post = {
+      title: this.postForm.value.title,
+      permalink: this.postForm.value.permalink,
+      category: {
+        categoryId: '',
+        category: ''
+      },
+      postImgPath: '',
+      excerpt: this.postForm.value.excerpt,
+      content: this.postForm.value.content,
+      isFeatured: false,
+      count: 0,
+      status: 'new',
+      createdAt: new Date()
+    }
   }
 
 }
