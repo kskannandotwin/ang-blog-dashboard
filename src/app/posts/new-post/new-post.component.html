@@ -59,8 +59,8 @@
                             <label>Please select a post category</label>
                             <select class="form-control" formControlName="category"
                                 [ngClass]="{'is-invalid':fc.category.touched && fc.category.invalid}">
-                                <option selected>Please select a category</option>                                
-                                <option *ngFor="let category of categories">{{ category.data.category }}
+                                <option value="" selected>Please select a category</option>                                
+                                <option *ngFor="let category of categories" value="{{category.id}}-{{category.data.category}}">{{ category.data.category }}
                                 </option>
                             </select>
                         </div>
