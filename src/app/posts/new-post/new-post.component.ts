@@ -21,7 +21,7 @@ export class NewPostComponent implements OnInit {
   constructor(private categoryService: CategoriesService, private fb: FormBuilder, private postService: PostsService) {
     this.postForm = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(10)]],
-      permalink: [{ value: '', disabled: true }, Validators.required],
+      permalink: ['', Validators.required],
       excerpt: ['', [Validators.required, Validators.minLength(50)]],
       category: ['', Validators.required],
       postImg: ['', Validators.required],
@@ -72,7 +72,9 @@ export class NewPostComponent implements OnInit {
       status: 'new',
       createdAt: new Date()
     }
-    this.postService.uploadImage(this.selectedImg);
+    this.postService.uploadImage(this.selectedImg, postData);
+    this.postForm.reset();
+    this.imgSrc = './assets/placeholder-image.png';
   }
 
 }
