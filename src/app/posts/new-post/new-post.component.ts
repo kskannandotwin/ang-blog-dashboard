@@ -18,7 +18,8 @@ export class NewPostComponent implements OnInit {
 
   categories: Array<object> | any;
   postForm: FormGroup | any;
-  disabled = true;
+  post: any;
+  formStatus: string = 'Add New';
 
   constructor(
     private categoryService: CategoriesService,
@@ -28,16 +29,19 @@ export class NewPostComponent implements OnInit {
   ) {
 
     this.route.queryParams.subscribe(val => {
-      console.log(val);
-    });
-
-    this.postForm = this.fb.group({
-      title: ['', [Validators.required, Validators.minLength(10)]],
-      permalink: [{ value: '', disabled: true }, Validators.required],
-      excerpt: ['', [Validators.required, Validators.minLength(50)]],
-      category: ['', Validators.required],
-      postImg: ['', Validators.required],
-      content: ['', Validators.required]
+      this.postService.loadOneData(val['id']).subscribe(post => {
+        this.post = post;
+        this.postForm = this.fb.group({
+          title: [this.post.title, [Validators.required, Validators.minLength(10)]],
+          permalink: [{ value: this.post.permalink, disabled: true }, Validators.required],
+          excerpt: [this.post.excerpt, [Validators.required, Validators.minLength(50)]],
+          category: [`${this.post.category.categoryId}-${this.post.category.category}`, Validators.required],
+          postImg: ['', Validators.required],
+          content: [this.post.content, Validators.required]
+        });
+        this.imgSrc = this.post.postImgPath;
+        this.formStatus = 'Edit';
+      });
     });
   }
 
