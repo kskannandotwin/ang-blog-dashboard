@@ -17,11 +17,12 @@ export class NewPostComponent implements OnInit {
 
   categories: Array<object> | any;
   postForm: FormGroup | any;
+  disabled = true;
 
   constructor(private categoryService: CategoriesService, private fb: FormBuilder, private postService: PostsService) {
     this.postForm = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(10)]],
-      permalink: ['', Validators.required],
+      permalink: [{value: '', disabled: true}, Validators.required],
       excerpt: ['', [Validators.required, Validators.minLength(50)]],
       category: ['', Validators.required],
       postImg: ['', Validators.required],
