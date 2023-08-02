@@ -10,7 +10,11 @@ import { map } from 'rxjs/operators';
 })
 export class PostsService {
 
-  constructor(private storage: AngularFireStorage, private afs: AngularFirestore, private toastr: ToastrService, private router: Router) { }
+  constructor(
+    private storage: AngularFireStorage,
+    private afs: AngularFirestore,
+    private toastr: ToastrService,
+    private router: Router) { }
 
   uploadImage(selectedImage: any, postData: any, formStatus: any, id: any) {
     const filePath = `postImg/${Date.now()}`;
@@ -55,7 +59,7 @@ export class PostsService {
     return this.afs.doc(`posts/${id}`).valueChanges();
   }
 
-  updateData(id: any, postData: any ) {
+  updateData(id: any, postData: any) {
     this.afs.doc(`posts/${id}`).update(postData).then(() => {
       this.toastr.success('Data updated successfully');
       this.router.navigate(['/posts']);
