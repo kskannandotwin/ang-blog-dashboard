@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -9,11 +10,13 @@ import { AuthService } from 'src/app/services/auth.service';
 export class HeaderComponent {
 
   userEmail: string | undefined;
+  isLoggedIn$: Observable<boolean> | undefined;
 
   constructor(private authService: AuthService) {}
 
   ngOnInit() {
     this.userEmail = JSON.parse(localStorage.getItem('user') || '{}').email;
+    this.isLoggedIn$ = this.authService.isLoggedIn();
   }
 
   onLogOut() {
