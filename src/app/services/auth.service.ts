@@ -13,9 +13,16 @@ export class AuthService {
   login(email: string, password: string) {
     this.afAuth.signInWithEmailAndPassword(email, password).then(logRef => {
       this.toastr.success('Logged in successfully');
+      this.loadUser();
       this.router.navigate(['/']);
     }).catch(e => {
       this.toastr.warning(e);
     })
+  }
+
+  loadUser() {
+    this.afAuth.authState.subscribe(user => {
+      localStorage.setItem('user', JSON.stringify(user));
+    });
   }
 }
