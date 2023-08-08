@@ -10,6 +10,7 @@ import { BehaviorSubject } from 'rxjs';
 export class AuthService {
 
   loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  isLoggedInGuard: boolean = false;
 
   constructor(private afAuth: AngularFireAuth, private toastr: ToastrService, private router: Router) { }
 
@@ -19,6 +20,7 @@ export class AuthService {
       this.loadUser();
 
       this.loggedIn.next(true);
+      this.isLoggedInGuard = true;
 
       this.router.navigate(['/']);
     }).catch(e => {
@@ -38,6 +40,7 @@ export class AuthService {
       localStorage.removeItem('user');
 
       this.loggedIn.next(false);
+      this.isLoggedInGuard = false;
       
       this.router.navigate(['/login']);
     })
