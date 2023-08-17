@@ -18,4 +18,8 @@ export class SubscribersComponent {
     });
   }
 
+  onDelete(id: any) {
+    this.subService.deleteData(id);
+  }
+
 }

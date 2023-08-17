@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { ToastrService } from 'ngx-toastr';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -7,7 +8,7 @@ import { map } from 'rxjs/operators';
 })
 export class SubscribersService {
 
-  constructor(private afs: AngularFirestore) { }
+  constructor(private afs: AngularFirestore, private toastr: ToastrService) { }
 
   loadData() {
     return this.afs.collection('subscribers').snapshotChanges().pipe(
@@ -19,5 +20,11 @@ export class SubscribersService {
         })
       })
     )
+  }
+
+  deleteData(id: any) {
+    this.afs.doc(`subscribers/${id}`).delete().then(docRef => {
+      this.toastr.success('Data deleted!');
+    })
   }
 }
